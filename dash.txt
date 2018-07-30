@@ -10,6 +10,10 @@ ffmpeg -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny
 ffmpeg -f vfwcap -framerate 25 -video_size 640x480 -i 0 -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
 ffmpeg -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
 
+ffmpeg -f rtsp -rtsp_transport tcp -i rtsp://admin:HuaWei123@10.7.1.65:554/LiveMedia/ch1/Media1 -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
+
+ffmpeg -f rtsp -rtsp_transport udp -i rtsp://admin:HuaWei123@10.7.1.65:554/LiveMedia/ch1/Media1 -an -f dash temp/manifest.mpd
+
 mkdir /dev/shm/mpeg-dash-static && ln -s /dev/shm/mpeg-dash-static /var/www/html
 
 cat > /var/www/html/mpeg-dash/index.html << EOF
