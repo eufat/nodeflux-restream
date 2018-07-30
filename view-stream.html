@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Stream Client</title>
+	<link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+	<style type="text/css">
+		video#jsmpeg-player,
+		video#videojs-player,
+		video#shaka-player {
+			width: 640px;
+			height: 480px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<canvas id="jsmpeg-player"></canvas>
+	<video id="videojs-player" class="video-js vjs-default-skin" controls> </video>
+	<video id="shaka-player" poster="https://shaka-player-demo.appspot.com/assets/poster.jpg" controls autoplay></video>
+
+	<!-- <script src="jsmpeg.min.js"></script> -->
+
+	<!--
+	<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+	<script src="https://unpkg.com/video.js/dist/video.js"></script>
+	<script src="https://unpkg.com/videojs-contrib-dash/dist/videojs-dash.js"></script> 
+	-->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.2/shaka-player.compiled.js"></script>
+
+	<script type="text/javascript">
+		// JSMMPEG Player
+		// const canvas = document.getElementById('jsmpeg-player');
+		// const url = 'ws://54.213.226.202:9092/';
+		// const player = new JSMpeg.Player(url, { canvas: canvas });
+
+		// Video.js Player
+		// const player = videojs('videojs-player');
+		// player.src({ src: 'manifest.mpd', type: 'application/dash+xml' });
+		// player.play();
+
+		// Shaka Player
+		// const manifestUri = 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';
+		const manifestUri = 'manifest.mpd';
+
+		function initApp() {
+			// Install built-in polyfills to patch browser incompatibilities.
+			shaka.polyfill.installAll();
+
+			// Check to see if the browser supports the basic APIs Shaka needs.
+			if (shaka.Player.isBrowserSupported()) {
+				// Everything looks good!
+				initPlayer();
+			} else {
+				// This browser does not have the minimum set of APIs we need.
+				console.error('Browser not supported!');
+			}
+		}
+
+		function initPlayer() {
+			// Create a Player instance.
+			const video = document.getElementById('shaka-player');
+			const player = new shaka.Player(video);
+
+			// Attach player to the window to make it easy to access in the JS console.
+			window.player = player;
+
+			// Listen for error events.
+			player.addEventListener('error', onErrorEvent);
+
+			// Try to load a manifest.
+			// This is an asynchronous process.
+			player.load(manifestUri).then(function () {
+				// This runs if the asynchronous load is successful.
+				console.log('The video has now been loaded!');
+			}).catch(onError);  // onError is executed if the asynchronous load fails.
+		}
+
+		function onErrorEvent(event) {
+			// Extract the shaka.util.Error object from the event.
+			onError(event.detail);
+		}
+
+		function onError(error) {
+			// Log the error.
+			console.error('Error code', error.code, 'object', error);
+		}
+
+		document.addEventListener('DOMContentLoaded', initApp);
+	</script>
+</body>
+
+</html>
