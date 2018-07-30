@@ -1,0 +1,23 @@
+{
+  "name": "nodeflux-restream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jsmpeg.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eufat/nodeflux-restream.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eufat/nodeflux-restream/issues"
+  },
+  "homepage": "https://github.com/eufat/nodeflux-restream#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

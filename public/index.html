@@ -17,33 +17,32 @@
 
 <body>
 	<canvas id="jsmpeg-player"></canvas>
-	<video id="videojs-player" class="video-js vjs-default-skin" controls> </video>
 	<video id="shaka-player" poster="https://shaka-player-demo.appspot.com/assets/poster.jpg" controls autoplay></video>
+	<video id="videojs-player" width=640 height=480 class="video-js vjs-default-skin" controls> </video>
 
-	<!-- <script src="jsmpeg.min.js"></script> -->
+	<script src="jsmpeg.min.js"></script>
 
-	<!--
 	<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 	<script src="https://unpkg.com/video.js/dist/video.js"></script>
-	<script src="https://unpkg.com/videojs-contrib-dash/dist/videojs-dash.js"></script> 
-	-->
+	<script src="https://unpkg.com/videojs-contrib-dash/dist/videojs-dash.js"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.2/shaka-player.compiled.js"></script>
 
 	<script type="text/javascript">
 		// JSMMPEG Player
-		// const canvas = document.getElementById('jsmpeg-player');
-		// const url = 'ws://54.213.226.202:9092/';
-		// const player = new JSMpeg.Player(url, { canvas: canvas });
+		const canvas = document.getElementById('jsmpeg-player');
+		const url = 'ws://54.213.226.202:9092/';
+		const player = new JSMpeg.Player(url, { canvas: canvas });
+
+		const manifestUri = 'http://localhost:3000/temp/manifest.mpd';
 
 		// Video.js Player
-		// const player = videojs('videojs-player');
-		// player.src({ src: 'manifest.mpd', type: 'application/dash+xml' });
-		// player.play();
+		const videojsplayer = videojs('videojs-player');
+		videojsplayer.src({ src: manifestUri, type: 'application/dash+xml' });
+		videojsplayer.play();
 
 		// Shaka Player
 		// const manifestUri = 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';
-		const manifestUri = 'manifest.mpd';
 
 		function initApp() {
 			// Install built-in polyfills to patch browser incompatibilities.
