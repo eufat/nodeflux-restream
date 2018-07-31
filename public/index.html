@@ -16,8 +16,9 @@
 </head>
 
 <body>
+	<h1 id="current-time"></h1>
 	<canvas id="jsmpeg-player"></canvas>
-	<video id="shaka-player" poster="https://shaka-player-demo.appspot.com/assets/poster.jpg" controls autoplay></video>
+	<!-- <video id="shaka-player" poster="https://shaka-player-demo.appspot.com/assets/poster.jpg" controls autoplay></video> -->
 	<!-- <video id="videojs-player" width=640 height=480 class="video-js vjs-default-skin" controls> </video> -->
 
 	<script src="jsmpeg.min.js"></script>
@@ -29,6 +30,21 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/2.4.2/shaka-player.compiled.js"></script>
 
 	<script type="text/javascript">
+		currentTimeElement = document.getElementById("current-time");
+
+		function startTime() {
+			const currentdate = new Date();
+			const datetime = "Last Sync: " + currentdate.getDate() + "/"
+				+ (currentdate.getMonth() + 1) + "/"
+				+ currentdate.getFullYear() + " @ "
+				+ currentdate.getHours() + ":"
+				+ currentdate.getMinutes() + ":"
+				+ currentdate.getSeconds();
+
+			currentTimeElement.innerHTML = datetime;
+			var t = setTimeout(startTime, 1000);
+		}
+
 		// JSMMPEG Player
 		const canvas = document.getElementById('jsmpeg-player');
 		const url = 'ws://54.213.226.202:9092/';
@@ -37,9 +53,9 @@
 		const manifestUri = 'http://localhost:3000/temp/manifest.mpd';
 
 		// Video.js Player
-		const videojsplayer = videojs('videojs-player');
-		videojsplayer.src({ src: manifestUri, type: 'application/dash+xml' });
-		videojsplayer.play();
+		// const videojsplayer = videojs('videojs-player');
+		// videojsplayer.src({ src: manifestUri, type: 'application/dash+xml' });
+		// videojsplayer.play();
 
 		// Shaka Player
 		// const manifestUri = 'https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd';

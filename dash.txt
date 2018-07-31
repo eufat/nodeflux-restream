@@ -1,55 +1,55 @@
-ffmpeg -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -b:v 2000k -f dash -window_size 4 -extra_window_size 0 -min_seg_duration 2000000 -remove_at_exit 1 /var/www/html/mpeg-dash/manifest.mpd
-ffmpeg -rtsp_flags listen -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -b:v 2000k -f dash -remove_at_exit 1 /var/www/html/mpeg-dash/manifest.mpd
-ffmpeg -re -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -b:v 2000k -f dash -remove_at_exit 1 /var/www/html/mpeg-dash/manifest.mpd
-ffmpeg -re -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -c copy -f dash /var/www/html/mpeg-dash/manifest.mpd
-ffmpeg -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c copy -f dash /var/www/html/mpeg-dash/manifest.mpd
-ffmpeg -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -f dash /var/www/html/mpeg-dash/manifest.mpd
+    ffmpeg -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -b:v 2000k -f dash -window_size 4 -extra_window_size 0 -min_seg_duration 2000000 -remove_at_exit 1 /var/www/html/mpeg-dash/manifest.mpd
+    ffmpeg -rtsp_flags listen -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -b:v 2000k -f dash -remove_at_exit 1 /var/www/html/mpeg-dash/manifest.mpd
+    ffmpeg -re -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -b:v 2000k -f dash -remove_at_exit 1 /var/www/html/mpeg-dash/manifest.mpd
+    ffmpeg -re -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -c copy -f dash /var/www/html/mpeg-dash/manifest.mpd
+    ffmpeg -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c copy -f dash /var/www/html/mpeg-dash/manifest.mpd
+    ffmpeg -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -c:v copy -f dash /var/www/html/mpeg-dash/manifest.mpd
 
-ffmpeg -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -f dash manifest.mpd
+    ffmpeg -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -f dash manifest.mpd
 
-ffmpeg -f vfwcap -framerate 25 -video_size 640x480 -i 0 -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
-ffmpeg -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
+    ffmpeg -f vfwcap -framerate 25 -video_size 640x480 -i 0 -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
+    ffmpeg -f rtsp -rtsp_transport udp -i rtsp://184.72.239.149/vod/mp4:BigBuckBunny_175k.mov -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
 
-ffmpeg -f rtsp -rtsp_transport tcp -i rtsp://admin:HuaWei123@10.7.1.65:554/LiveMedia/ch1/Media1 -an -f mpegts -codec:v mpeg1video -s 640x480 -b:v 1000k -bf 0 http://54.213.226.202:9091/nodeflux
+    ffmpeg -f rtsp -rtsp_transport tcp -i rtsp://admin:HuaWei123@10.7.1.65:554/LiveMedia/ch1/Media1 -an -f mpegts -codec:v mpeg1video -s 1280x720 -b:v 2000k -bf 0 http://54.213.226.202:9091/nodeflux
 
-ffmpeg -f rtsp -rtsp_transport udp -i rtsp://admin:HuaWei123@10.7.1.65:554/LiveMedia/ch1/Media1 -an -f dash temp/manifest.mpd
+    ffmpeg -f rtsp -rtsp_transport udp -i rtsp://admin:HuaWei123@10.7.1.65:554/LiveMedia/ch1/Media1 -an -f dash -bf 0 manifest.mpd
 
-mkdir /dev/shm/mpeg-dash-static && ln -s /dev/shm/mpeg-dash-static /var/www/html
+    mkdir /dev/shm/mpeg-dash-static && ln -s /dev/shm/mpeg-dash-static /var/www/html
 
-cat > /var/www/html/mpeg-dash/index.html << EOF
-<!DOCTYPE html>
-<head>
-<meta charset="UTF-8">
-<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-<style>
-    video {
-        width: 640px;
-        height: 480px;
-    }
-</style>
-<body>
-    <div>
-        <video data-dashjs-player autoplay controls src="manifest.mpd" type="application/dash+xml"></video>
-    </div>
-</body>
-</html>
-EOF
+    cat > /var/www/html/mpeg-dash/index.html << EOF
+    <!DOCTYPE html>
+    <head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <style>
+        video {
+            width: 640px;
+            height: 480px;
+        }
+    </style>
+    <body>
+        <div>
+            <video data-dashjs-player autoplay controls src="manifest.mpd" type="application/dash+xml"></video>
+        </div>
+    </body>
+    </html>
+    EOF
 
-cat > /var/www/html/mpeg-dash-static/index.html << EOF
-<!DOCTYPE html>
-<head>
-<meta charset="UTF-8">
-<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
-<style>
-    video {
-        width: 640px;
-        height: 480px;
-    }
-</style>
-<body>
-    <div>
-        <video data-dashjs-player autoplay controls src="https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd" type="application/dash+xml"></video>
-    </div>
-</body>
-</html>
-EOF
+    cat > /var/www/html/mpeg-dash-static/index.html << EOF
+    <!DOCTYPE html>
+    <head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <style>
+        video {
+            width: 640px;
+            height: 480px;
+        }
+    </style>
+    <body>
+        <div>
+            <video data-dashjs-player autoplay controls src="https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd" type="application/dash+xml"></video>
+        </div>
+    </body>
+    </html>
+    EOF

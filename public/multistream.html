@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Multitream Client</title>
+    <style type="text/css">
+        canvas {
+            width: 640px;
+            height: 480px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 id="current-time"></h1>
+    <canvas id="jsmpeg-player-0"></canvas>
+    <canvas id="jsmpeg-player-1"></canvas>
+    <canvas id="jsmpeg-player-2"></canvas>
+    <canvas id="jsmpeg-player-3"></canvas>
+    <canvas id="jsmpeg-player-4"></canvas>
+    <canvas id="jsmpeg-player-5"></canvas>
+    <canvas id="jsmpeg-player-6"></canvas>
+    <canvas id="jsmpeg-player-6"></canvas>
+    <canvas id="jsmpeg-player-7"></canvas>
+    <canvas id="jsmpeg-player-8"></canvas>
+    <canvas id="jsmpeg-player-9"></canvas>
+    <script src="jsmpeg.min.js"></script>
+
+    <script type="text/javascript">
+        // JSMPEG Player
+        for (i = 0; i < 10; i++) {
+            const canvas = document.getElementById(`jsmpeg-player-${i}`);
+            const url = `ws://54.213.226.202:909${i}/`;
+            const player = new JSMpeg.Player(url, { canvas: canvas });
+        }
+    </script>
+</body>
+
+</html>
